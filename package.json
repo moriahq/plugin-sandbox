@@ -1,0 +1,23 @@
+{
+  "name": "plugin-sandbox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moriahq/plugin-sandbox.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moriahq/plugin-sandbox/issues"
+  },
+  "homepage": "https://github.com/moriahq/plugin-sandbox#readme",
+  "dependencies": {
+    "isolated-vm": "^4.2.0"
+  }
+}
