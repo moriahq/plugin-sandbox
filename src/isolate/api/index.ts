@@ -4,32 +4,38 @@ export class IsolateApi {
     this.onceTimers = new Map();
 
     this.setTimeout = (callback, ms) => {
+      ms = ms.copySync();
+
       const transferableTimeoutId = ++this.timerId;
       this.onceTimers[transferableTimeoutId] = setTimeout(() => {
-        callback();
+        callback.applySync();
       }, ms);
       return transferableTimeoutId;
     };
 
-    this.logConsole = (method, ...args) => {
-      const loggerMethod = method === 'log' ? 'info' : method;
-      console[loggerMethod](...args);
+    this.logConsole = (...args) => {
+      args = args.map(item => item.copySync());
+      console.log(...args);
     };
 
     this.clearTimeout = (id) => {
+      id = id.copySync();
+
       clearTimeout(this.onceTimers[id]);
       delete this.onceTimers[id];
     };
 
     this.setInterval = (callback, ms) => {
+      ms = ms.copySync();
       const transferableIntervalId = ++this.timerId;
       this.periodicTimers[transferableIntervalId] = setInterval(() => {
-        callback();
+        callback.applySync();
       }, ms);
       return transferableIntervalId;
     };
 
     this.clearInterval = (id) => {
+      id = id.copySync();
       clearInterval(this.periodicTimers[id]);
       delete this.periodicTimers[id];
     };

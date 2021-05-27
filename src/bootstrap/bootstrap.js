@@ -9,10 +9,11 @@ function bootstrap(ivm, context) {
     'logConsole'
   ];
   global.api = {};
+
   contextApiKeys.forEach(key => {
     Object.defineProperty(global, key, {
       get() {
-        return (...method) => context.applyIgnored(null, [key, ...method.map(arg => new ivm.ExternalCopy(arg).copyInto())], {
+        return (...method) => context.applyIgnored(null, [key, ...method.map(arg => new ivm.Reference(arg))], {
           result: { promise: true },
         });
       }
