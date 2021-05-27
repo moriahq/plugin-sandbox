@@ -12,7 +12,7 @@ function bootstrap(ivm, context) {
   contextApiKeys.forEach(key => {
     Object.defineProperty(global, key, {
       get() {
-        return (...method) => context.apply(null, [key, ...method], {
+        return (...method) => context.applyIgnored(null, [key, ...method.map(arg => new ivm.ExternalCopy(arg).copyInto())], {
           result: { promise: true },
         });
       }
